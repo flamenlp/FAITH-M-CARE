@@ -1,184 +1,230 @@
-# CARE
+<div align="center">
 
-**📄 Paper**: This work has been accepted at **ACL 2026** main conference for an **oral presentation**. Read the paper: [https://arxiv.org/pdf/2604.05795](https://arxiv.org/pdf/2604.05795)
+# 🏥 CARE
 
----
+## Clinical Assessment and Response Evaluation Framework
 
-This repository contains the official implementation of **CARE**, a framework for evaluating therapist responses across clinically grounded therapeutic principles using:
+[![ACL 2026](https://img.shields.io/badge/ACL-2026_Oral-blue?style=flat-square&logo=arxiv)](https://arxiv.org/pdf/2604.05795)
+[![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue?style=flat-square&logo=python)](https://www.python.org/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-2.0%2B-red?style=flat-square&logo=pytorch)](https://pytorch.org/)
+[![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
 
-- Context-aware modeling
-- Retrieval-Augmented Generation (RAG)
-- Knowledge-Distilled Chain-of-Thought (KD-CoT)
-- Multi-label ordinal classification
+**Evaluating therapist responses through clinically grounded therapeutic principles**
 
----
+[📄 Read the Paper](https://arxiv.org/pdf/2604.05795) • [🔗 Project](https://github.com) • [📧 Contact](#contact)
 
-## Overview
-
-CARE evaluates therapist responses across six therapeutic dimensions:
-
-- Non-Judgmental Language  
-- Warmth and Encouragement  
-- Respect for Autonomy  
-- Active Listening  
-- Reflecting Feelings  
-- Situational Appropriateness  
-
-Each response is scored on an **ordinal scale**:
-
--2 (Strong Negative) → +2 (Strong Positive)
-
+</div>
 
 ---
 
-## Pipeline
+## 🎯 Overview
 
+**CARE** is an intelligent framework that evaluates therapist responses across **six clinically grounded therapeutic dimensions** using advanced NLP techniques:
 
+| Dimension | Focus |
+|-----------|-------|
+| 🗣️ **Non-Judgmental Language** | Acceptance without judgment |
+| 💝 **Warmth and Encouragement** | Supportive and affirming tone |
+| 🔓 **Respect for Autonomy** | Supporting patient independence |
+| 👂 **Active Listening** | Attentive engagement |
+| ❤️ **Reflecting Feelings** | Emotional understanding and validation |
+| 🎯 **Situational Appropriateness** | Context-relevant responses |
+
+Each response is scored on an **ordinal scale**: **-2** (Strong Negative) → **+2** (Strong Positive)
+
+---
+
+## ✨ Key Techniques
+
+<div align="center">
+
+```
 Conversation Context
-↓
-Retrieval (RAG)
-↓
+        ↓
+   Retrieval (RAG)
+        ↓
 KD-CoT Explanation Generation
-↓
+        ↓
 Cross-Attention Fusion
-↓
+        ↓
 Ordinal Classification
+```
 
+</div>
+
+- 🔍 **Context-aware Modeling** - Understands conversation flow and context
+- 🔄 **Retrieval-Augmented Generation (RAG)** - Retrieves relevant examples for enhanced reasoning
+- 🎓 **Knowledge-Distilled Chain-of-Thought (KD-CoT)** - Generates interpretable explanations
+- 📊 **Multi-label Ordinal Classification** - Predicts multi-dimensional ordinal scores
 
 ---
 
-## Repository Structure
+## ⚡ Highlights
 
-``` id="care_struct"
+✅ Clinically grounded therapeutic evaluation  
+✅ Explanation-guided learning with interpretability  
+✅ Retrieval-enhanced reasoning for better context awareness  
+✅ Multi-task ordinal modeling for nuanced predictions  
+✅ Comprehensive evaluation with QWK metrics  
+
+---
+
+## 📁 Repository Structure
+
+```
 .
-├── CARE.py              # Training + explanation generation pipeline
-├── Inference.py         # Inference + evaluation pipeline
-├── train/               # Training CSVs (provided upon request)
-├── val/                 # Validation CSVs
-├── test/                # Test CSVs
-├── outputs/             # Model checkpoints + results
+├── CARE.py                    # Training + explanation generation pipeline
+├── Inference.py               # Inference + evaluation pipeline
+├── train/                     # Training datasets (provided upon request)
+├── val/                       # Validation datasets
+├── test/                      # Test datasets
+├── outputs/                   # Model checkpoints + results
+└── README.md                  # This file
+```
 
---> Dataset Access
+---
 
-Due to data sensitivity and ethical considerations, the dataset is not publicly hosted.
+## 🔐 Dataset Access
 
-To request access, please fill out the form:
+> Due to data sensitivity and ethical considerations, the dataset is **not publicly hosted**.
 
-[https://forms.gle/jac2KMsYbeNZBrUU9]
+To request access to the training and validation data, please fill out this form:
+👉 [Request Dataset Access](https://forms.gle/jac2KMsYbeNZBrUU9)
 
-After approval, you will receive:
+After approval, you'll receive:
+- `train/` - Training data with annotated therapist conversations
+- `val/` - Validation data
+- `test/` - Test data
 
-train/
-val/
-test/
+### 📋 Data Format
 
-Each containing CSV files with annotated therapist conversations.
+Each CSV file includes:
 
---> Data Format
+| Field | Description |
+|-------|-------------|
+| **ID** | Unique identifier |
+| **Utterance** | Therapist or patient response |
+| **Type** | T (Therapist) or P (Patient) |
+| **6 Labels** | Scores for each therapeutic dimension (-2 to +2) |
 
-Each CSV includes:
+---
 
-ID
-Utterance
-Type (T = Therapist, P = Patient)
-Six therapeutic labels:
-Label	Description
-Non-Judgmental Language	Acceptance without judgment
-Warmth and Encouragement	Supportive tone
-Respect for Autonomy	Patient independence
-Active Listening	Attentive engagement
-Reflecting Feelings	Emotional understanding
-Situational Appropriateness	Context relevance
+## 🚀 Quick Start
 
---> Installation
+### 1️⃣ Installation
+
+```bash
+# Create environment
 conda create -n care python=3.10
 conda activate care
 
+# Install dependencies
 pip install torch transformers sentence-transformers peft scikit-learn tqdm matplotlib seaborn pandas
+```
 
---> Training
+### 2️⃣ Training
 
-Run the full CARE pipeline:
+Run the complete CARE pipeline:
 
+```bash
 python CARE.py
+```
 
-This will:
+**This will:**
+- Generate KD-CoT explanations (cached if already generated)
+- Train the hierarchical classifier
+- Save the best model to `outputs/best_classifier.pt`
 
-Generate KD-CoT explanations (if not already cached)
-Train the hierarchical classifier
-Save the best model to:
-outputs/best_classifier.pt
+### 3️⃣ Inference & Evaluation
 
---> Inference & Evaluation
+```bash
 python Inference.py
+```
 
-This will:
+**This will:**
+- Generate explanations for test data
+- Run classification
+- Save results to `inference_outputs/`:
+  - `predictions.csv`
+  - `confusion_matrices/`
+  - `metrics.json`
 
-Generate explanations for test data
-Run classification
-Save outputs:
-inference_outputs/
-├── predictions.csv
-├── confusion matrices
-├── metrics
+---
 
---> Method Details
-KD-CoT (Knowledge Distillation)
-Teacher models (e.g., GPT-4o, Mistral) generate reasoning explanations
-These explanations guide the student model (Qwen-based)
+## 🔬 Method Details
 
---> Important:
-Teacher models are only used for generating explanations, not final predictions.
+### 🎓 Knowledge-Distilled Chain-of-Thought (KD-CoT)
 
-Retrieval-Augmented Reasoning
+- Teacher models (GPT-4o, Mistral) generate reasoning explanations
+- Explanations guide the student model (Qwen-based)
+- **Note:** Teachers only generate explanations, not final predictions
 
-Uses SentenceTransformers
-Retrieves top-k similar examples
-Provides contrastive signals (positive vs negative)
+### 🔍 Retrieval-Augmented Reasoning
 
-Cross-Attention Fusion
+- Uses **SentenceTransformers** for semantic similarity
+- Retrieves top-k similar examples from knowledge base
+- Provides contrastive signals (positive vs negative examples)
 
---> CARE integrates:
+### 🔗 Cross-Attention Fusion
 
-Context representation
-Distilled knowledge (explanations)
-Utterance embedding
+CARE integrates three key components:
+1. Context representation
+2. Distilled knowledge (explanations)
+3. Utterance embeddings
 
-via cross-attention before classification.
+These are fused via **cross-attention** before classification.
 
---> Hierarchical Classification
+### 📊 Hierarchical Classification
 
-Multi-label prediction (6 dimensions)
-Dual objective:
-Ordinal classification (5 classes)
-Binary polarity prediction
+- **Multi-label prediction** across 6 dimensions
+- **Dual objective:**
+  - Ordinal classification (5 classes)
+  - Binary polarity prediction
 
---> Evaluation Metrics
-Quadratic Weighted Kappa (QWK)
-Accuracy
-Confusion Matrices
-⚡ Key Features
-✔ Clinically grounded evaluation
-✔ Explanation-guided learning
-✔ Retrieval-enhanced reasoning
-✔ Multi-task ordinal modeling
-✔ Interpretable outputs
+### 📈 Evaluation Metrics
 
---> Configuration
+- **Quadratic Weighted Kappa (QWK)** - Measures inter-rater agreement accounting for magnitude of disagreement
+- **Accuracy** - Standard classification accuracy
+- **Confusion Matrices** - Detailed error analysis
 
-Modify parameters in CARE.py:
+---
 
+## ⚙️ Configuration
+
+Customize training parameters in `CARE.py`:
+
+```python
 CONFIG = {
-    "batch_size": 16,
-    "epochs": 10,
-    "lr": 5e-5,
-    "context_window": 4,
-    "top_k": 3
+    "batch_size": 16,           # Batch size for training
+    "epochs": 10,               # Number of training epochs
+    "lr": 5e-5,                 # Learning rate
+    "context_window": 4,        # Conversation context window
+    "top_k": 3                  # Top-k retrieved examples for RAG
 }
+```
 
---> Notes
-Explanation generation is computationally intensive
-GPU recommended
-Ensure sufficient memory for LLM inference
+---
 
+## 💡 Important Notes
 
+⚠️ **Computational Requirements:**
+- Explanation generation is computationally intensive
+- GPU recommended (NVIDIA CUDA-compatible GPU)
+- Ensure sufficient memory for LLM inference (16GB+ recommended)
+
+---
+
+## 📚 Citation
+
+If you use CARE in your research, please cite:
+
+```bibtex
+@inproceedings{care2026,
+  title={CARE: Clinical Assessment and Response Evaluation Framework},
+  author={[Your Authors]},
+  booktitle={Proceedings of ACL 2026},
+  year={2026},
+  url={https://arxiv.org/pdf/2604.05795}
+}
+```
+---
