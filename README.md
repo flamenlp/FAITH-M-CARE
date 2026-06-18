@@ -5,7 +5,6 @@
 
 [![ACL 2026](https://img.shields.io/badge/ACL-2026%20Oral-brightgreen?style=flat-square)](https://arxiv.org/pdf/2604.05795)
 [![arXiv](https://img.shields.io/badge/arXiv-2604.05795-red?style=flat-square)](https://arxiv.org/pdf/2604.05795)
-[![Paper](https://img.shields.io/badge/Paper-PDF-orange?style=flat-square)](1679_Measuring_What_Matters_As.pdf)
 
 </div>
 
