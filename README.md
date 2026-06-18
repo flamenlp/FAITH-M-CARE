@@ -223,6 +223,6 @@ If you use CARE in your research, please cite:
 
 <div align="center">
         
-[📄 arXiv Paper](https://arxiv.org/pdf/2604.05795) • [📋 Full Paper](1679_Measuring_What_Matters_As.pdf) • [📮 Request Dataset](https://forms.gle/jac2KMsYbeNZBrUU9)
+[📄 arXiv Paper](https://arxiv.org/pdf/2604.05795) • [📮 Request Dataset](https://forms.gle/jac2KMsYbeNZBrUU9)
 
 </div>
