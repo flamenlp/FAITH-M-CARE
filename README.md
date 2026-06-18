@@ -1,4 +1,9 @@
 # CARE
+
+**📄 Paper**: This work has been accepted at **ACL 2026** main conference for an **oral presentation**. Read the paper: [https://arxiv.org/pdf/2604.05795](https://arxiv.org/pdf/2604.05795)
+
+---
+
 This repository contains the official implementation of **CARE**, a framework for evaluating therapist responses across clinically grounded therapeutic principles using:
 
 - Context-aware modeling
